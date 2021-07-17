@@ -1,5 +1,9 @@
-isEmptyResponse = (obj) => {
-  return Object.keys(obj).length === 0;
+isEmptyResponse = (response) => {
+  if(response instanceof Array){
+    return response.length === 0;
+  } else if(response instanceof Object){
+    return Object.keys(response).length === 0;
+  }
 };
 
 sortBasedOnKey = (list, order, key) => {
@@ -12,13 +16,13 @@ sortBasedOnKey = (list, order, key) => {
 };
 
 oneMonthBack = () => {
-  var d = getDateObject();
-  var m = d.getMonth();
-  d.setMonth(d.getMonth() - 1);
+  let date = getDateObject();
+  let month = date.getMonth();
+  date.setMonth(date.getMonth() - 1);
 
-  if (d.getMonth() == m) d.setDate(0);
-  d.setHours(0, 0, 0, 0);
-  return d;
+  if (date.getMonth() == month) date.setDate(0);
+  date.setHours(0, 0, 0, 0);
+  return date;
 };
 
 getDateObject = (date) => {

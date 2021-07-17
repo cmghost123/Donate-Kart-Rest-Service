@@ -8,9 +8,6 @@ sortBasedOnKey = (list, order, key) => {
   } else {
     list.sort((a, b) => b[key] - a[key]);
   }
-  list.forEach((e) => {
-    console.log(`${e.totalAmount} ----> ${e.code}`);
-  });
   return list;
 };
 
@@ -32,7 +29,6 @@ getDateObject = (date) => {
   } else {
     let today = new Date();
     today.setHours(0, 0, 0, 0);
-    console.log(today);
     return today;
   }
 };

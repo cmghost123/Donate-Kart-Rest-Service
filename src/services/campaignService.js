@@ -12,11 +12,11 @@ getAllCampaigns = async () => {
     let result;
     if (config.isMock) {
       console.log("MOCK");
-      result = MOCK;
+      result = MOCK.campaigns;
     } else {
       let campaignResponse = await fetch(config.donateKartTestUrl);
       let campaigns = await campaignResponse.json();
-      console.log("total campaigns : ", campaigns.length);
+      console.log("Total campaigns : ", campaigns.length);
       result = campaigns;
     }
     if (utils.isEmptyResponse(result)) {
@@ -42,14 +42,15 @@ getCampaigns = async () => {
 
 getCampaignByNgoCode = async (req, res) => {
   try {
-    let response = await getAllCampaigns();
-    if (response && response.campaigns.length) {
-      campaignFound = response.campaigns.find(
+    let campaigns = await getAllCampaigns();
+    if (campaigns && campaigns.length) {
+      campaignFound = campaigns.filter(
         (campaign) => campaign.ngoCode === req.params.ngoCode
       );
-      console.log(campaignFound);
+      return campaignFound;
+    } else {
+      return campaigns;
     }
-    return campaignFound;
   } catch (error) {
     return error;
   }
@@ -70,9 +71,8 @@ getSubsetOfCampaigns = (campaigns) => {
 sortCampaigns = async (req) => {
   try {
     let key;
-    let response = await getAllCampaigns();
-
-    if (response && response.campaigns.length) {
+    let campaigns = await getAllCampaigns();
+    if (campaigns && campaigns.length) {
       if (req.query.key) {
         key = req.query.key;
       } else {
@@ -80,7 +80,7 @@ sortCampaigns = async (req) => {
       }
 
       let sortedCampaigns = utils.sortBasedOnKey(
-        response.campaigns,
+        campaigns,
         req.query.order,
         key
       );
@@ -94,41 +94,36 @@ sortCampaigns = async (req) => {
   }
 };
 
-filterActiveCampiagns = (list) => {
+filterActiveCampaigns = (list) => {
   let today = utils.getDateObject();
 
   let previousMonth = utils.oneMonthBack();
-  console.log(list.length);
-  let campiagns = list.filter((item) => {
+  let campaigns = list.filter((item) => {
     let creationDate = utils.getDateObject(item.created);
     let endDate = utils.getDateObject(item.endDate);
-    console.log(creationDate, endDate);
+
     return creationDate >= previousMonth && endDate >= today;
   });
-  console.log(campiagns);
-  return campiagns;
+  return campaigns;
 };
 
-inActiveCampiagns = (list) => {
+filterInActiveCampaigns = (list) => {
   let today = utils.getDateObject();
 
-  let campiagns = list.filter((item) => {
+  let campaigns = list.filter((item) => {
     let endDate = utils.getDateObject(item.endDate);
-
-    endDate < today && console.log(endDate);
     return item.procuredAmount >= item.totalAmount || endDate < today;
   });
-
-  return campiagns;
+  return campaigns;
 };
 
 getActiveCampaigns = async () => {
   try {
-    let response = await getAllCampaigns();
-    if (response && response.campaigns.length) {
-      return filterActiveCampiagns(response.campaigns);
+    let campaigns = await getAllCampaigns();
+    if (campaigns && campaigns.length) {
+      return filterActiveCampaigns(campaigns);
     } else {
-      return response;
+      return campaigns;
     }
   } catch (error) {
     return error;
@@ -137,9 +132,11 @@ getActiveCampaigns = async () => {
 
 getInActiveCampaigns = async () => {
   try {
-    let response = await getAllCampaigns();
-    if (response && response.campaigns.length) {
-      return inActiveCampiagns(response.campaigns);
+    let campaigns = await getAllCampaigns();
+    if (campaigns && campaigns.length) {
+      return filterInActiveCampaigns(campaigns);
+    } else {
+      return campaigns;
     }
   } catch (error) {
     return error;

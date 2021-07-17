@@ -1,4 +1,4 @@
 {
     "donateKartTestUrl": "https://testapi.donatekart.com/api/campaign?type=active",
-    "isMock": true
+    "isMock": false
 }

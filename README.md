@@ -14,12 +14,12 @@ Api Endpoints:
    example : localhost:8080/api/campaigns/sort?key=totalAmount&order=ascending
 
 3. "/api/campaigns/active"
-->  Gets active campaigns that are created within the last 1 month and considers campaign active only if the end date is greater
+-> Gets active campaigns that are created within the last 1 month and considers campaign active only if the end date is greater
     than or equal to today.
 
 4."/api/campaigns/inActive:
 -> Gets all campaigns i.e closed. If the end date is less than today, or procured amount is greater than or equal to total amount
-    we consider the campaign as inactive.
+   we consider the campaign as inactive.
 
 5. "/api/campaigns/ngCode/{ngoCode}"
 -> Gets specific capmaign passsed using ngoCode in path.

@@ -1,0 +1,30 @@
+{
+  "name": "donate-kart-rest-service",
+  "version": "1.0.0",
+  "description": "Donate-Kart Rest Services Assignment",
+  "main": "index.js",
+  "dependencies": {
+    "express": "^4.17.1",
+    "node-fetch": "^2.6.1",
+    "typescript": "^4.3.5"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.12"
+  },
+  "scripts": {
+    "start": "node src/index.js",
+    "dev": "nodemon src/index.js",
+    "build": "npm ci",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/cmghost123/Donate-Kart-Rest-Service.git"
+  },
+  "author": "kiran.c.m",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/cmghost123/Donate-Kart-Rest-Service/issues"
+  },
+  "homepage": "https://github.com/cmghost123/Donate-Kart-Rest-Service#readme"
+}

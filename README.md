@@ -1,7 +1,7 @@
 # Donate-Kart-Rest-Service
 
 Donate-Kart Rest Services Assignment
-
+Please turn the boolean "isMock" in config.json file mock data needs to be used for development purpose.
 Api Endpoints:
 
 1. "/api/campaigns/"

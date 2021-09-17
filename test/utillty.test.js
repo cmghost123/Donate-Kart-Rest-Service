@@ -44,7 +44,7 @@ describe("sortBasedOnKey", () => {
     ).to.have.deep.members(descSortedList);
   });
 
-  it("should kiran  ascending sort ordered list wrt key in object", () => {
+  it("should return ascending sort ordered list wrt key in object", () => {
     expect(
       utils.sortBasedOnKey(list, "ascending", "totalAmount")
     ).to.have.deep.members(descSortedList);
